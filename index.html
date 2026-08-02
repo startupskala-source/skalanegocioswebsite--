@@ -1,615 +1,1111 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Skala — Sites, agendamento e tráfego pago</title>
-<meta name="description" content="Skala é uma agência digital que cria sites, mini sistemas de agendamento e campanhas de tráfego pago para empresas que querem crescer de verdade.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --white:#FAF9F6;
-    --white-pure:#FFFFFF;
-    --ink:#0E2A47;
-    --ink-soft:#54677C;
-    --blue:#2158C9;
-    --blue-dark:#123B85;
-    --blue-light:#E8F0FD;
-    --orange:#FF5A1F;
-    --orange-soft:#FF8A50;
-    --orange-light:#FFE9DD;
-    --radius:16px;
-    --font-display:'Space Grotesk', sans-serif;
-    --font-body:'Inter', sans-serif;
-    --font-mono:'JetBrains Mono', monospace;
-    --maxw:1180px;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ff4d00">
+  <title>Skala — Estratégia digital para crescer</title>
+  <meta name="description" content="A Skala cria sites, sistemas de agendamento e campanhas de tráfego pago para empresas que querem vender mais e crescer com estrutura.">
 
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:var(--white);
-    color:var(--ink);
-    font-family:var(--font-body);
-    line-height:1.55;
-    -webkit-font-smoothing:antialiased;
-  }
-  h1,h2,h3,h4{
-    font-family:var(--font-display);
-    color:var(--ink);
-    margin:0;
-    line-height:1.1;
-    letter-spacing:-0.01em;
-  }
-  p{margin:0;}
-  a{color:inherit;text-decoration:none;}
-  ul{margin:0;padding:0;list-style:none;}
-  img,svg{display:block;max-width:100%;}
-  section{scroll-margin-top:84px;}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  .skip-link{
-    position:absolute; left:-999px; top:0;
-    background:var(--ink); color:#fff; padding:12px 18px;
-    border-radius:0 0 8px 0; z-index:200; font-family:var(--font-mono); font-size:14px;
-  }
-  .skip-link:focus{left:0;}
+  <style>
+    :root{
+      --orange:#ff4d00;
+      --orange-dark:#d94000;
+      --orange-soft:#fff1ea;
+      --orange-light:#fff8f4;
+      --white:#ffffff;
+      --text:#201610;
+      --muted:#6e5d53;
+      --border:#f0ddd2;
+      --shadow:0 24px 60px rgba(104,42,10,.10);
+      --radius:20px;
+      --max-width:1180px;
+      --font:'Manrope',sans-serif;
+    }
 
-  :focus-visible{outline:2px solid var(--orange); outline-offset:3px;}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      overflow-x:hidden;
+      background:var(--white);
+      color:var(--text);
+      font-family:var(--font);
+      line-height:1.55;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
 
-  .container{
-    max-width:var(--maxw);
-    margin:0 auto;
-    padding:0 28px;
-  }
+    body.menu-open{overflow:hidden}
 
-  .eyebrow{
-    font-family:var(--font-mono);
-    font-size:12.5px;
-    letter-spacing:0.12em;
-    text-transform:uppercase;
-    color:var(--blue);
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-  }
-  .eyebrow::before{
-    content:"";
-    width:16px; height:2px;
-    background:var(--orange);
-    display:inline-block;
-  }
+    h1,h2,h3,h4,p{margin:0}
+    h1,h2,h3,h4{line-height:1.05;letter-spacing:-.04em}
+    a{color:inherit;text-decoration:none}
+    ul{margin:0;padding:0;list-style:none}
+    button{font:inherit}
+    img,svg{display:block;max-width:100%}
+    section{scroll-margin-top:92px}
 
-  /* ---------- HEADER ---------- */
-  header.nav{
-    position:fixed; top:0; left:0; right:0; z-index:100;
-    background:rgba(250,249,246,0.86);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid rgba(14,42,71,0.08);
-  }
-  .nav-inner{
-    max-width:var(--maxw); margin:0 auto; padding:16px 28px;
-    display:flex; align-items:center; justify-content:space-between;
-  }
-  .logo{
-    font-family:var(--font-display);
-    font-weight:700; font-size:22px;
-    color:var(--ink);
-    display:flex; align-items:baseline; gap:2px;
-  }
-  .logo .dot{color:var(--orange);}
-  .nav-links{display:flex; gap:32px; align-items:center;}
-  .nav-links a{
-    font-size:15px; font-weight:500; color:var(--ink-soft);
-    transition:color .2s ease;
-  }
-  .nav-links a:hover{color:var(--ink);}
-  .btn{
-    display:inline-flex; align-items:center; justify-content:center; gap:8px;
-    font-family:var(--font-body); font-weight:600; font-size:15px;
-    padding:12px 24px; border-radius:100px; cursor:pointer;
-    border:1.5px solid transparent; transition:transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
-    white-space:nowrap;
-  }
-  .btn-primary{background:var(--orange); color:#fff;}
-  .btn-primary:hover{background:#E64C15; box-shadow:0 10px 24px -8px rgba(255,90,31,0.55); transform:translateY(-1px);}
-  .btn-outline{border-color:rgba(14,42,71,0.25); color:var(--ink);}
-  .btn-outline:hover{border-color:var(--blue); color:var(--blue);}
-  .btn-nav-cta{padding:10px 20px; font-size:14px;}
+    ::selection{background:var(--orange);color:var(--white)}
+    :focus-visible{outline:3px solid rgba(255,77,0,.35);outline-offset:4px}
 
-  .menu-toggle{
-    display:none; background:none; border:none; cursor:pointer; padding:6px;
-    flex-direction:column; gap:5px;
-  }
-  .menu-toggle span{width:24px; height:2px; background:var(--ink); display:block; border-radius:2px;}
-  .mobile-panel{
-    display:none;
-    position:fixed; top:64px; left:0; right:0; bottom:0; z-index:99;
-    background:var(--white); padding:32px 28px;
-    flex-direction:column; gap:24px;
-  }
-  .mobile-panel.open{display:flex;}
-  .mobile-panel a{font-family:var(--font-display); font-size:26px; font-weight:600;}
-  .mobile-panel .btn{align-self:flex-start; margin-top:12px;}
+    .container{
+      width:min(100% - 40px,var(--max-width));
+      margin-inline:auto;
+    }
 
-  /* ---------- HERO ---------- */
-  .hero{
-    position:relative;
-    padding:168px 0 96px;
-    overflow:hidden;
-  }
-  .hero::before{
-    content:""; position:absolute; top:-180px; right:-160px; width:520px; height:520px;
-    background:radial-gradient(circle, rgba(33,88,201,0.14), transparent 70%);
-    border-radius:50%; z-index:0;
-  }
-  .hero::after{
-    content:""; position:absolute; bottom:-220px; left:-180px; width:480px; height:480px;
-    background:radial-gradient(circle, rgba(255,90,31,0.12), transparent 70%);
-    border-radius:50%; z-index:0;
-  }
-  .hero-inner{position:relative; z-index:1; display:grid; grid-template-columns:1.1fr 0.9fr; gap:64px; align-items:center;}
-  .hero-copy h1{
-    font-size:clamp(36px, 5vw, 60px);
-    margin:18px 0 22px;
-    max-width:14ch;
-  }
-  .hero-copy h1 .accent{color:var(--orange);}
-  .hero-copy p.lead{
-    font-size:18px; color:var(--ink-soft); max-width:46ch; margin-bottom:34px;
-  }
-  .hero-actions{display:flex; gap:16px; flex-wrap:wrap;}
+    .skip-link{
+      position:fixed;
+      left:16px;
+      top:-80px;
+      z-index:999;
+      padding:12px 18px;
+      border-radius:10px;
+      background:var(--orange);
+      color:var(--white);
+      font-weight:800;
+      transition:top .2s ease;
+    }
+    .skip-link:focus{top:16px}
 
-  /* Level meter (hero visual) */
-  .level-meter{
-    background:var(--white-pure);
-    border:1px solid rgba(14,42,71,0.08);
-    border-radius:var(--radius);
-    padding:28px 26px 22px;
-    box-shadow:0 24px 60px -30px rgba(14,42,71,0.25);
-  }
-  .level-meter-title{
-    font-family:var(--font-mono); font-size:11.5px; letter-spacing:0.1em; text-transform:uppercase;
-    color:var(--ink-soft); margin-bottom:22px; display:block;
-  }
-  .level-row{margin-bottom:20px;}
-  .level-row-top{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px;}
-  .level-label{font-size:14.5px; font-weight:600; display:flex; align-items:center; gap:8px;}
-  .level-num{font-family:var(--font-mono); font-size:12px; color:var(--ink-soft);}
-  .level-pct{font-family:var(--font-mono); font-size:12px; color:var(--ink-soft);}
-  .level-track{
-    height:9px; background:var(--blue-light); border-radius:100px; overflow:hidden;
-  }
-  .level-fill{
-    height:100%; width:0%; border-radius:100px;
-    transition:width 1.3s cubic-bezier(.2,.8,.2,1);
-  }
-  .lvl-1 .level-fill{background:var(--blue);}
-  .lvl-2 .level-fill{background:linear-gradient(90deg, var(--blue), var(--orange-soft));}
-  .lvl-3 .level-fill{background:var(--orange);}
-  .level-meter.is-visible .lvl-1 .level-fill{width:35%;}
-  .level-meter.is-visible .lvl-2 .level-fill{width:68%;}
-  .level-meter.is-visible .lvl-3 .level-fill{width:100%;}
-  .level-baseline{
-    display:flex; justify-content:space-between; margin-top:14px; padding-top:14px;
-    border-top:1px dashed rgba(14,42,71,0.15);
-    font-family:var(--font-mono); font-size:11px; color:rgba(14,42,71,0.4);
-  }
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+      color:var(--orange);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
+    .eyebrow::before{
+      content:"";
+      width:24px;
+      height:2px;
+      background:var(--orange);
+    }
 
-  /* ---------- SECTION GENERIC ---------- */
-  .section-pad{padding:110px 0;}
-  .section-head{max-width:640px; margin-bottom:56px;}
-  .section-head h2{font-size:clamp(28px, 3.4vw, 42px); margin-top:16px;}
-  .section-head p{color:var(--ink-soft); font-size:17px; margin-top:16px;}
+    .section{
+      padding:112px 0;
+    }
 
-  .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease;}
-  .reveal.is-visible{opacity:1; transform:translateY(0);}
+    .section-head{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(280px,440px);
+      gap:56px;
+      align-items:end;
+      margin-bottom:54px;
+    }
 
-  /* ---------- SERVICES ---------- */
-  .services{background:var(--white-pure); border-top:1px solid rgba(14,42,71,0.06); border-bottom:1px solid rgba(14,42,71,0.06);}
-  .service-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:28px;}
-  .service-card{
-    background:var(--white); border-radius:var(--radius);
-    padding:32px 28px; border-top:4px solid var(--blue);
-    transition:transform .25s ease, box-shadow .25s ease;
-  }
-  .service-card:hover{transform:translateY(-6px); box-shadow:0 26px 50px -28px rgba(14,42,71,0.35);}
-  .service-card.lvl-1{border-top-color:var(--blue);}
-  .service-card.lvl-2{border-image:linear-gradient(90deg, var(--blue), var(--orange-soft)) 1;}
-  .service-card.lvl-3{border-top-color:var(--orange);}
-  .service-badge{
-    font-family:var(--font-mono); font-size:12px; font-weight:500;
-    display:inline-block; padding:5px 11px; border-radius:100px; margin-bottom:18px;
-  }
-  .service-card.lvl-1 .service-badge{background:var(--blue-light); color:var(--blue);}
-  .service-card.lvl-2 .service-badge{background:var(--blue-light); color:var(--blue-dark);}
-  .service-card.lvl-3 .service-badge{background:var(--orange-light); color:var(--orange);}
-  .service-card h3{font-size:21px; margin-bottom:12px;}
-  .service-card p.desc{color:var(--ink-soft); font-size:15px; margin-bottom:20px;}
-  .service-card ul{display:flex; flex-direction:column; gap:9px;}
-  .service-card li{font-size:14px; color:var(--ink); display:flex; gap:9px; align-items:flex-start;}
-  .service-card li::before{content:"—"; color:var(--orange); flex:none;}
+    .section-head h2{
+      max-width:760px;
+      margin-top:18px;
+      font-size:clamp(34px,4.2vw,58px);
+      font-weight:800;
+    }
 
-  /* ---------- PROCESS ---------- */
-  .process{background:var(--white);}
-  .process-grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:0;}
-  .process-step{position:relative; padding:0 22px 0 0;}
-  .process-step:not(:last-child)::after{
-    content:""; position:absolute; top:19px; right:-2px; width:calc(100% - 44px); height:2px;
-    background:repeating-linear-gradient(90deg, rgba(14,42,71,0.18) 0 6px, transparent 6px 12px);
-  }
-  .process-num{
-    font-family:var(--font-mono); font-size:14px; font-weight:500;
-    width:38px; height:38px; border-radius:50%; border:1.5px solid var(--ink);
-    display:flex; align-items:center; justify-content:center; margin-bottom:20px;
-    background:var(--white);
-  }
-  .process-step:nth-child(1) .process-num{border-color:var(--blue); color:var(--blue);}
-  .process-step:nth-child(2) .process-num{border-color:var(--blue); color:var(--blue);}
-  .process-step:nth-child(3) .process-num{border-color:var(--orange); color:var(--orange);}
-  .process-step:nth-child(4) .process-num{border-color:var(--orange); background:var(--orange); color:#fff;}
-  .process-step h4{font-size:18px; margin-bottom:10px;}
-  .process-step p{color:var(--ink-soft); font-size:14.5px;}
+    .section-head p{
+      color:var(--muted);
+      font-size:16px;
+    }
 
-  /* ---------- WHY / DIFERENCIAIS ---------- */
-  .why{background:var(--ink); color:#fff;}
-  .why .eyebrow{color:var(--orange-soft);}
-  .why .eyebrow::before{background:var(--orange-soft);}
-  .why .section-head h2{color:#fff;}
-  .why .section-head p{color:rgba(255,255,255,0.65);}
-  .why-grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:24px;}
-  .why-card{
-    background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1);
-    border-radius:var(--radius); padding:26px 22px;
-  }
-  .why-icon{
-    width:38px; height:38px; border-radius:10px; margin-bottom:18px;
-    display:flex; align-items:center; justify-content:center;
-    background:rgba(255,138,80,0.15);
-  }
-  .why-icon svg{stroke:var(--orange-soft);}
-  .why-card h4{color:#fff; font-size:17px; margin-bottom:10px;}
-  .why-card p{color:rgba(255,255,255,0.6); font-size:14px;}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-height:52px;
+      padding:14px 24px;
+      border:1px solid transparent;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:800;
+      transition:transform .2s ease,background .2s ease,border-color .2s ease,color .2s ease,box-shadow .2s ease;
+    }
 
-  /* ---------- CTA FINAL ---------- */
-  .cta-final{
-    background:linear-gradient(135deg, var(--blue-dark), var(--blue));
-    color:#fff; position:relative; overflow:hidden;
-  }
-  .cta-final::after{
-    content:""; position:absolute; bottom:-140px; right:-100px; width:420px; height:420px;
-    background:radial-gradient(circle, rgba(255,90,31,0.35), transparent 70%);
-  }
-  .cta-inner{position:relative; z-index:1; text-align:center; max-width:640px; margin:0 auto;}
-  .cta-final .eyebrow{color:var(--orange-soft); justify-content:center;}
-  .cta-final .eyebrow::before{background:#fff;}
-  .cta-final h2{color:#fff; font-size:clamp(30px, 4vw, 44px); margin:18px 0 18px;}
-  .cta-final p{color:rgba(255,255,255,0.78); font-size:17px; margin-bottom:34px;}
-  .cta-final .btn-primary{background:#fff; color:var(--blue-dark);}
-  .cta-final .btn-primary:hover{background:var(--orange); color:#fff; box-shadow:0 10px 24px -8px rgba(255,90,31,0.6);}
-  .cta-outline{border-color:rgba(255,255,255,0.4); color:#fff;}
-  .cta-outline:hover{border-color:#fff;}
-  .cta-actions{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
+    .btn:hover{transform:translateY(-2px)}
 
-  /* ---------- FOOTER ---------- */
-  footer{background:var(--white-pure); padding:56px 0 32px; border-top:1px solid rgba(14,42,71,0.08);}
-  .footer-top{display:flex; justify-content:space-between; flex-wrap:wrap; gap:32px; margin-bottom:40px;}
-  .footer-brand p{color:var(--ink-soft); font-size:14px; margin-top:12px; max-width:32ch;}
-  .footer-cols{display:flex; gap:64px; flex-wrap:wrap;}
-  .footer-col h5{font-family:var(--font-mono); font-size:12px; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-soft); margin-bottom:14px;}
-  .footer-col ul{display:flex; flex-direction:column; gap:10px;}
-  .footer-col a{font-size:14.5px; color:var(--ink); transition:color .2s ease;}
-  .footer-col a:hover{color:var(--orange);}
-  .footer-bottom{
-    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
-    padding-top:24px; border-top:1px solid rgba(14,42,71,0.08);
-    font-size:13px; color:var(--ink-soft); font-family:var(--font-mono);
-  }
+    .btn-primary{
+      background:var(--orange);
+      color:var(--white);
+      box-shadow:0 14px 30px rgba(255,77,0,.20);
+    }
+    .btn-primary:hover{background:var(--orange-dark);box-shadow:0 18px 36px rgba(255,77,0,.25)}
 
-  /* ---------- RESPONSIVE ---------- */
-  @media (max-width:900px){
-    .hero-inner{grid-template-columns:1fr; gap:48px;}
-    .service-grid{grid-template-columns:1fr;}
-    .process-grid{grid-template-columns:1fr 1fr; row-gap:40px;}
-    .process-step:nth-child(2)::after, .process-step:nth-child(4)::after{display:none;}
-    .why-grid{grid-template-columns:1fr 1fr;}
-    .nav-links{display:none;}
-    .menu-toggle{display:flex;}
-    .footer-top{flex-direction:column;}
-  }
-  @media (max-width:560px){
-    .hero{padding:140px 0 72px;}
-    .process-grid{grid-template-columns:1fr;}
-    .process-step::after{display:none;}
-    .why-grid{grid-template-columns:1fr;}
-    .section-pad{padding:76px 0;}
-    .cta-actions{flex-direction:column;}
-    .cta-actions .btn{width:100%;}
-  }
+    .btn-secondary{
+      border-color:var(--border);
+      background:var(--white);
+      color:var(--text);
+    }
+    .btn-secondary:hover{border-color:var(--orange);color:var(--orange)}
 
-  @media (prefers-reduced-motion: reduce){
-    *{transition:none !important; animation:none !important; scroll-behavior:auto !important;}
-  }
-</style>
+    .btn-arrow::after{
+      content:"→";
+      font-size:18px;
+      line-height:1;
+      transition:transform .2s ease;
+    }
+    .btn-arrow:hover::after{transform:translateX(4px)}
+
+    /* Header */
+    .site-header{
+      position:fixed;
+      inset:0 0 auto;
+      z-index:100;
+      background:rgba(255,255,255,.96);
+      border-bottom:1px solid transparent;
+      transition:border-color .2s ease,box-shadow .2s ease;
+    }
+
+    .site-header.scrolled{
+      border-bottom-color:var(--border);
+      box-shadow:0 10px 30px rgba(87,35,8,.05);
+    }
+
+    .header-inner{
+      min-height:78px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:28px;
+    }
+
+    .logo{
+      display:inline-flex;
+      align-items:baseline;
+      font-size:26px;
+      font-weight:800;
+      letter-spacing:-.06em;
+    }
+    .logo span{color:var(--orange)}
+
+    .desktop-nav{
+      display:flex;
+      align-items:center;
+      gap:30px;
+    }
+
+    .desktop-nav a{
+      color:var(--muted);
+      font-size:14px;
+      font-weight:700;
+      transition:color .2s ease;
+    }
+    .desktop-nav a:hover{color:var(--orange)}
+
+    .header-actions{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .header-cta{
+      min-height:44px;
+      padding:11px 18px;
+      font-size:13px;
+    }
+
+    .menu-toggle{
+      display:none;
+      width:46px;
+      height:46px;
+      padding:0;
+      border:1px solid var(--border);
+      border-radius:10px;
+      background:var(--white);
+      cursor:pointer;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:5px;
+    }
+
+    .menu-toggle span{
+      width:21px;
+      height:2px;
+      border-radius:999px;
+      background:var(--orange);
+      transition:transform .2s ease,opacity .2s ease;
+    }
+
+    .menu-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .menu-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+    .menu-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+    .mobile-menu{
+      display:none;
+      position:fixed;
+      inset:78px 0 0;
+      z-index:99;
+      padding:28px 20px;
+      background:var(--white);
+    }
+
+    .mobile-menu.open{display:block}
+
+    .mobile-menu nav{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .mobile-menu nav a:not(.btn){
+      padding:16px 4px;
+      border-bottom:1px solid var(--border);
+      font-size:22px;
+      font-weight:800;
+    }
+
+    .mobile-menu .btn{width:100%;margin-top:24px}
+
+    /* Hero */
+    .hero{
+      position:relative;
+      min-height:820px;
+      padding:160px 0 92px;
+      display:flex;
+      align-items:center;
+      overflow:hidden;
+      background:
+        linear-gradient(90deg,transparent 0 69%,var(--orange-light) 69% 100%);
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      top:124px;
+      right:-130px;
+      width:390px;
+      height:390px;
+      border:72px solid var(--orange-soft);
+      border-radius:50%;
+      pointer-events:none;
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:0;
+      width:100%;
+      height:1px;
+      background:var(--border);
+    }
+
+    .hero-grid{
+      position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns:minmax(0,1.08fr) minmax(360px,.82fr);
+      gap:80px;
+      align-items:center;
+    }
+
+    .hero-copy h1{
+      max-width:920px;
+      margin:22px 0 26px;
+      font-size:clamp(52px,6.4vw,88px);
+      font-weight:800;
+    }
+
+    .hero-copy h1 strong{
+      color:var(--orange);
+      font-weight:800;
+    }
+
+    .hero-copy .lead{
+      max-width:610px;
+      color:var(--muted);
+      font-size:18px;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:34px;
+    }
+
+    .hero-proof{
+      display:flex;
+      flex-wrap:wrap;
+      gap:20px 30px;
+      margin-top:38px;
+      padding-top:28px;
+      border-top:1px solid var(--border);
+    }
+
+    .proof-item{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .proof-item::before{
+      content:"✓";
+      display:grid;
+      place-items:center;
+      width:22px;
+      height:22px;
+      border-radius:50%;
+      background:var(--orange-soft);
+      color:var(--orange);
+      font-size:12px;
+      font-weight:800;
+    }
+
+    .strategy-card{
+      position:relative;
+      padding:38px;
+      border-radius:var(--radius);
+      background:var(--orange);
+      color:var(--white);
+      box-shadow:0 30px 70px rgba(177,52,0,.24);
+    }
+
+    .strategy-card::before{
+      content:"";
+      position:absolute;
+      top:24px;
+      right:24px;
+      width:76px;
+      height:76px;
+      border:1px solid rgba(255,255,255,.28);
+      border-radius:50%;
+    }
+
+    .strategy-kicker{
+      display:block;
+      margin-bottom:52px;
+      color:rgba(255,255,255,.72);
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
+
+    .strategy-card h2{
+      max-width:8ch;
+      color:var(--white);
+      font-size:clamp(34px,4vw,54px);
+      font-weight:800;
+    }
+
+    .strategy-list{
+      display:grid;
+      gap:0;
+      margin-top:42px;
+      border-top:1px solid rgba(255,255,255,.25);
+    }
+
+    .strategy-list li{
+      display:grid;
+      grid-template-columns:38px 1fr auto;
+      gap:12px;
+      align-items:center;
+      padding:17px 0;
+      border-bottom:1px solid rgba(255,255,255,.25);
+      font-size:14px;
+      font-weight:800;
+    }
+
+    .strategy-list span:first-child{
+      color:rgba(255,255,255,.56);
+      font-size:11px;
+    }
+
+    .strategy-list span:last-child{font-size:18px}
+
+    /* Services */
+    .services{background:var(--white)}
+
+    .service-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:20px;
+    }
+
+    .service-card{
+      position:relative;
+      min-height:390px;
+      padding:34px 30px;
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:var(--white);
+      transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
+    }
+
+    .service-card:hover{
+      transform:translateY(-7px);
+      border-color:rgba(255,77,0,.45);
+      box-shadow:var(--shadow);
+    }
+
+    .service-number{
+      display:block;
+      margin-bottom:64px;
+      color:var(--orange);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.12em;
+    }
+
+    .service-card h3{
+      max-width:280px;
+      margin-bottom:16px;
+      font-size:27px;
+      font-weight:800;
+    }
+
+    .service-card p{
+      color:var(--muted);
+      font-size:15px;
+    }
+
+    .service-card ul{
+      display:grid;
+      gap:11px;
+      margin-top:28px;
+      padding-top:24px;
+      border-top:1px solid var(--border);
+    }
+
+    .service-card li{
+      display:flex;
+      gap:10px;
+      color:var(--text);
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .service-card li::before{
+      content:"—";
+      color:var(--orange);
+      font-weight:800;
+    }
+
+    /* Outcome strip */
+    .outcome{
+      padding:0 0 112px;
+      background:var(--white);
+    }
+
+    .outcome-panel{
+      position:relative;
+      overflow:hidden;
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:60px;
+      align-items:center;
+      padding:70px;
+      border-radius:26px;
+      background:var(--orange);
+      color:var(--white);
+    }
+
+    .outcome-panel::after{
+      content:"";
+      position:absolute;
+      right:-100px;
+      bottom:-180px;
+      width:420px;
+      height:420px;
+      border:70px solid rgba(255,255,255,.10);
+      border-radius:50%;
+    }
+
+    .outcome-panel h2{
+      position:relative;
+      z-index:1;
+      max-width:650px;
+      color:var(--white);
+      font-size:clamp(36px,4.8vw,62px);
+      font-weight:800;
+    }
+
+    .outcome-copy{
+      position:relative;
+      z-index:1;
+      padding-left:50px;
+      border-left:1px solid rgba(255,255,255,.32);
+    }
+
+    .outcome-copy p{
+      color:rgba(255,255,255,.78);
+      font-size:16px;
+    }
+
+    .outcome-copy strong{
+      display:block;
+      margin-top:18px;
+      color:var(--white);
+      font-size:18px;
+    }
+
+    /* Process */
+    .process{background:var(--orange-light)}
+
+    .process-list{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border);
+    }
+
+    .process-item{
+      min-height:300px;
+      padding:34px 28px;
+      border-right:1px solid var(--border);
+      background:var(--white);
+    }
+
+    .process-item:first-child{border-left:1px solid var(--border)}
+
+    .process-number{
+      display:grid;
+      place-items:center;
+      width:46px;
+      height:46px;
+      margin-bottom:72px;
+      border-radius:50%;
+      background:var(--orange-soft);
+      color:var(--orange);
+      font-size:12px;
+      font-weight:800;
+    }
+
+    .process-item h3{
+      margin-bottom:12px;
+      font-size:22px;
+      font-weight:800;
+    }
+
+    .process-item p{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    /* Differentials */
+    .differentials{background:var(--white)}
+
+    .differential-grid{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:70px;
+      align-items:start;
+    }
+
+    .differential-copy{
+      position:sticky;
+      top:120px;
+    }
+
+    .differential-copy h2{
+      max-width:620px;
+      margin:18px 0 22px;
+      font-size:clamp(38px,4.6vw,64px);
+      font-weight:800;
+    }
+
+    .differential-copy p{
+      max-width:530px;
+      color:var(--muted);
+      font-size:16px;
+    }
+
+    .differential-list{
+      border-top:1px solid var(--border);
+    }
+
+    .differential-item{
+      display:grid;
+      grid-template-columns:46px 1fr;
+      gap:20px;
+      padding:30px 0;
+      border-bottom:1px solid var(--border);
+    }
+
+    .differential-icon{
+      display:grid;
+      place-items:center;
+      width:46px;
+      height:46px;
+      border-radius:12px;
+      background:var(--orange-soft);
+      color:var(--orange);
+      font-size:18px;
+      font-weight:800;
+    }
+
+    .differential-item h3{
+      margin-bottom:9px;
+      font-size:20px;
+      font-weight:800;
+    }
+
+    .differential-item p{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    /* CTA */
+    .cta{
+      padding:112px 0;
+      background:var(--orange-light);
+    }
+
+    .cta-box{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:48px;
+      align-items:center;
+      padding:62px 66px;
+      border:1px solid var(--border);
+      border-radius:26px;
+      background:var(--white);
+      box-shadow:0 28px 70px rgba(110,48,16,.08);
+    }
+
+    .cta-box h2{
+      max-width:780px;
+      margin-top:16px;
+      font-size:clamp(36px,4.5vw,62px);
+      font-weight:800;
+    }
+
+    .cta-box h2 span{color:var(--orange)}
+
+    .cta-box .btn{min-width:220px}
+
+    /* Footer */
+    footer{
+      padding:70px 0 28px;
+      background:var(--white);
+    }
+
+    .footer-top{
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:70px;
+      padding-bottom:48px;
+    }
+
+    .footer-brand p{
+      max-width:430px;
+      margin-top:16px;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .footer-links{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:30px;
+    }
+
+    .footer-column h3{
+      margin-bottom:17px;
+      color:var(--orange);
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .footer-column ul{display:grid;gap:10px}
+
+    .footer-column a{
+      color:var(--muted);
+      font-size:13px;
+      font-weight:700;
+      transition:color .2s ease;
+    }
+    .footer-column a:hover{color:var(--orange)}
+
+    .footer-bottom{
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      padding-top:24px;
+      border-top:1px solid var(--border);
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    /* Motion */
+    .reveal{
+      opacity:0;
+      transform:translateY(24px);
+      transition:opacity .65s ease,transform .65s ease;
+    }
+    .reveal.visible{opacity:1;transform:none}
+
+    /* Responsive */
+    @media (max-width:1020px){
+      .desktop-nav,.header-cta{display:none}
+      .menu-toggle{display:flex}
+      .hero{min-height:auto;background:var(--white)}
+      .hero-grid{grid-template-columns:1fr;gap:46px}
+      .strategy-card{max-width:650px}
+      .section-head{grid-template-columns:1fr;gap:18px}
+      .service-grid{grid-template-columns:1fr}
+      .service-card{min-height:auto}
+      .service-number{margin-bottom:42px}
+      .outcome-panel{grid-template-columns:1fr;padding:56px}
+      .outcome-copy{padding:28px 0 0;border-left:0;border-top:1px solid rgba(255,255,255,.32)}
+      .process-list{grid-template-columns:1fr 1fr}
+      .process-item:nth-child(2){border-right:1px solid var(--border)}
+      .differential-grid{grid-template-columns:1fr;gap:42px}
+      .differential-copy{position:static}
+      .cta-box{grid-template-columns:1fr}
+      .cta-box .btn{justify-self:start}
+      .footer-top{grid-template-columns:1fr}
+    }
+
+    @media (max-width:700px){
+      .container{width:min(100% - 28px,var(--max-width))}
+      .section{padding:82px 0}
+      .hero{padding:132px 0 72px}
+      .hero-copy h1{font-size:clamp(44px,13vw,64px)}
+      .hero-copy .lead{font-size:16px}
+      .hero-actions{flex-direction:column}
+      .hero-actions .btn{width:100%}
+      .hero-proof{display:grid;gap:13px}
+      .strategy-card{padding:30px 24px}
+      .strategy-kicker{margin-bottom:38px}
+      .outcome{padding-bottom:82px}
+      .outcome-panel{padding:42px 24px;border-radius:20px}
+      .process-list{grid-template-columns:1fr}
+      .process-item,.process-item:first-child{border-left:1px solid var(--border);border-right:1px solid var(--border)}
+      .process-number{margin-bottom:42px}
+      .cta{padding:82px 0}
+      .cta-box{padding:42px 24px;border-radius:20px}
+      .cta-box .btn{width:100%;min-width:0}
+      .footer-links{grid-template-columns:1fr 1fr}
+      .footer-bottom{flex-direction:column}
+    }
+
+    @media (max-width:460px){
+      .footer-links{grid-template-columns:1fr}
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      *,*::before,*::after{
+        scroll-behavior:auto!important;
+        animation:none!important;
+        transition:none!important;
+      }
+    }
+  </style>
 </head>
 <body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
-<a href="#inicio" class="skip-link">Pular para o conteúdo</a>
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <a class="logo" href="#inicio" aria-label="Skala, página inicial">skala<span>.</span></a>
 
-<header class="nav">
-  <div class="nav-inner">
-    <a href="#inicio" class="logo">skala<span class="dot">.</span></a>
-    <nav class="nav-links" aria-label="Navegação principal">
+      <nav class="desktop-nav" aria-label="Navegação principal">
+        <a href="#servicos">Serviços</a>
+        <a href="#processo">Como funciona</a>
+        <a href="#diferenciais">Diferenciais</a>
+        <a href="#contato">Contato</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn btn-primary header-cta" href="#contato">Falar com a Skala</a>
+        <button class="menu-toggle" id="menuToggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <nav aria-label="Navegação para celular">
       <a href="#servicos">Serviços</a>
       <a href="#processo">Como funciona</a>
       <a href="#diferenciais">Diferenciais</a>
       <a href="#contato">Contato</a>
+      <a class="btn btn-primary" href="#contato">Falar com a Skala</a>
     </nav>
-    <a href="#contato" class="btn btn-primary btn-nav-cta">Fale com a gente</a>
-    <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" id="menuToggle">
-      <span></span><span></span><span></span>
-    </button>
   </div>
-  <div class="mobile-panel" id="mobilePanel">
-    <a href="#servicos">Serviços</a>
-    <a href="#processo">Como funciona</a>
-    <a href="#diferenciais">Diferenciais</a>
-    <a href="#contato">Contato</a>
-    <a href="#contato" class="btn btn-primary">Fale com a gente</a>
-  </div>
-</header>
 
-<main>
+  <main id="conteudo">
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <span class="eyebrow">Estratégia digital para empresas</span>
+          <h1>Estrutura para vender. Estratégia para <strong>crescer.</strong></h1>
+          <p class="lead">A Skala conecta site, operação e tráfego pago para transformar presença digital em oportunidades reais de negócio.</p>
 
-  <section id="inicio" class="hero">
-    <div class="container hero-inner">
-      <div class="hero-copy">
-        <span class="eyebrow">Agência digital</span>
-        <h1>Sua empresa, numa <span class="accent">escala</span> maior.</h1>
-        <p class="lead">A Skala projeta sites, mini sistemas de agendamento e campanhas de tráfego pago que conversam entre si — pra sua empresa ganhar presença, organizar a operação e crescer todos os meses.</p>
-        <div class="hero-actions">
-          <a href="#contato" class="btn btn-primary">Quero escalar meu negócio</a>
-          <a href="#servicos" class="btn btn-outline">Ver serviços</a>
+          <div class="hero-actions">
+            <a class="btn btn-primary btn-arrow" href="#contato">Quero crescer com método</a>
+            <a class="btn btn-secondary" href="#servicos">Conhecer os serviços</a>
+          </div>
+
+          <div class="hero-proof" aria-label="Principais compromissos da Skala">
+            <span class="proof-item">Estratégia sob medida</span>
+            <span class="proof-item">Execução objetiva</span>
+            <span class="proof-item">Acompanhamento próximo</span>
+          </div>
+        </div>
+
+        <aside class="strategy-card reveal" aria-label="Método de crescimento Skala">
+          <span class="strategy-kicker">Método Skala</span>
+          <h2>Da presença à escala.</h2>
+          <ul class="strategy-list">
+            <li><span>01</span><span>Posicionamento</span><span>→</span></li>
+            <li><span>02</span><span>Estrutura digital</span><span>→</span></li>
+            <li><span>03</span><span>Aquisição</span><span>→</span></li>
+            <li><span>04</span><span>Otimização</span><span>→</span></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section services" id="servicos">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">O que fazemos</span>
+            <h2>As frentes que sustentam o crescimento.</h2>
+          </div>
+          <p>Não entregamos peças isoladas. Estruturamos os pontos essenciais para sua empresa ganhar presença, organização e capacidade de aquisição.</p>
+        </div>
+
+        <div class="service-grid">
+          <article class="service-card reveal">
+            <span class="service-number">01 / PRESENÇA</span>
+            <h3>Sites profissionais que geram oportunidades</h3>
+            <p>Projetos rápidos, responsivos e planejados para apresentar sua empresa com clareza e transformar acesso em contato.</p>
+            <ul>
+              <li>Site institucional e página de vendas</li>
+              <li>Estrutura otimizada para buscas</li>
+              <li>Experiência rápida em qualquer tela</li>
+            </ul>
+          </article>
+
+          <article class="service-card reveal">
+            <span class="service-number">02 / OPERAÇÃO</span>
+            <h3>Sistemas simples para organizar o atendimento</h3>
+            <p>Agendamento online e automações essenciais para reduzir tarefas manuais e deixar a rotina mais organizada.</p>
+            <ul>
+              <li>Agenda online disponível 24 horas</li>
+              <li>Lembretes automáticos</li>
+              <li>Painel objetivo para a equipe</li>
+            </ul>
+          </article>
+
+          <article class="service-card reveal">
+            <span class="service-number">03 / AQUISIÇÃO</span>
+            <h3>Tráfego pago com direção e acompanhamento</h3>
+            <p>Campanhas no Google e nas plataformas da Meta com metas claras, testes constantes e leitura simples dos resultados.</p>
+            <ul>
+              <li>Planejamento e configuração</li>
+              <li>Testes de público, oferta e anúncio</li>
+              <li>Otimização baseada em dados</li>
+            </ul>
+          </article>
         </div>
       </div>
+    </section>
 
-      <div class="level-meter reveal" id="levelMeter">
-        <span class="level-meter-title">Como a Skala constrói crescimento</span>
-
-        <div class="level-row lvl-1">
-          <div class="level-row-top">
-            <span class="level-label"><span class="level-num">01</span> Presença</span>
-            <span class="level-pct">site</span>
+    <section class="outcome" aria-label="Resultado da integração dos serviços">
+      <div class="container">
+        <div class="outcome-panel reveal">
+          <h2>Quando estratégia e execução trabalham juntas, o crescimento deixa de depender do improviso.</h2>
+          <div class="outcome-copy">
+            <p>A Skala organiza a base digital da sua empresa para que cada investimento tenha direção, acompanhamento e um objetivo claro.</p>
+            <strong>Menos ações soltas. Mais consistência.</strong>
           </div>
-          <div class="level-track"><div class="level-fill"></div></div>
-        </div>
-
-        <div class="level-row lvl-2">
-          <div class="level-row-top">
-            <span class="level-label"><span class="level-num">02</span> Operação</span>
-            <span class="level-pct">agendamento</span>
-          </div>
-          <div class="level-track"><div class="level-fill"></div></div>
-        </div>
-
-        <div class="level-row lvl-3">
-          <div class="level-row-top">
-            <span class="level-label"><span class="level-num">03</span> Crescimento</span>
-            <span class="level-pct">tráfego pago</span>
-          </div>
-          <div class="level-track"><div class="level-fill"></div></div>
-        </div>
-
-        <div class="level-baseline">
-          <span>0</span><span>25</span><span>50</span><span>75</span><span>100</span>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="servicos" class="services section-pad">
+    <section class="section process" id="processo">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Como funciona</span>
+            <h2>Um processo direto, do diagnóstico à evolução.</h2>
+          </div>
+          <p>Cada etapa existe para reduzir incertezas, organizar prioridades e transformar a estratégia em uma execução objetiva.</p>
+        </div>
+
+        <div class="process-list">
+          <article class="process-item reveal">
+            <span class="process-number">01</span>
+            <h3>Diagnóstico</h3>
+            <p>Entendemos o negócio, o momento atual e os principais gargalos.</p>
+          </article>
+
+          <article class="process-item reveal">
+            <span class="process-number">02</span>
+            <h3>Plano de ação</h3>
+            <p>Definimos prioridades, escopo, prazos e a estrutura necessária.</p>
+          </article>
+
+          <article class="process-item reveal">
+            <span class="process-number">03</span>
+            <h3>Implementação</h3>
+            <p>Construímos, configuramos, testamos e colocamos a operação no ar.</p>
+          </article>
+
+          <article class="process-item reveal">
+            <span class="process-number">04</span>
+            <h3>Otimização</h3>
+            <p>Acompanhamos os dados e ajustamos o que precisa evoluir.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section differentials" id="diferenciais">
+      <div class="container differential-grid">
+        <div class="differential-copy reveal">
+          <span class="eyebrow">Por que a Skala</span>
+          <h2>Clareza na estratégia. Agilidade na execução.</h2>
+          <p>Uma parceria próxima, com comunicação simples e foco no que realmente ajuda sua empresa a avançar.</p>
+        </div>
+
+        <div class="differential-list">
+          <article class="differential-item reveal">
+            <span class="differential-icon">01</span>
+            <div>
+              <h3>Visão integrada</h3>
+              <p>Site, atendimento e aquisição trabalhando com o mesmo objetivo.</p>
+            </div>
+          </article>
+
+          <article class="differential-item reveal">
+            <span class="differential-icon">02</span>
+            <div>
+              <h3>Escopo e prazo definidos</h3>
+              <p>Você sabe o que será feito, como será feito e quando será entregue.</p>
+            </div>
+          </article>
+
+          <article class="differential-item reveal">
+            <span class="differential-icon">03</span>
+            <div>
+              <h3>Decisões com base em dados</h3>
+              <p>Otimizações feitas a partir do comportamento e dos resultados reais.</p>
+            </div>
+          </article>
+
+          <article class="differential-item reveal">
+            <span class="differential-icon">04</span>
+            <div>
+              <h3>Contato direto</h3>
+              <p>Comunicação objetiva com quem está acompanhando o seu projeto.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="contato">
+      <div class="container">
+        <div class="cta-box reveal">
+          <div>
+            <span class="eyebrow">Próximo passo</span>
+            <h2>Vamos construir uma operação digital preparada para <span>crescer.</span></h2>
+          </div>
+          <a class="btn btn-primary btn-arrow" href="mailto:contato@skala.com.br">Falar com a Skala</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
     <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Serviços — as 3 camadas da Skala</span>
-        <h2>Cada nível prepara o próximo.</h2>
-        <p>Construímos a presença da sua marca, damos estrutura pra operação rodar sozinha e ligamos o motor de tráfego pago pra escalar o que já funciona.</p>
-      </div>
-
-      <div class="service-grid">
-        <article class="service-card lvl-1 reveal">
-          <span class="service-badge">01 · Presença</span>
-          <h3>Sites que vendem, não só existem</h3>
-          <p class="desc">Sites institucionais e páginas de vendas rápidas, responsivas e pensadas pra transformar visita em contato.</p>
-          <ul>
-            <li>Design sob medida pro seu negócio</li>
-            <li>Carregamento rápido em qualquer tela</li>
-            <li>Otimizado pra aparecer nas buscas</li>
-          </ul>
-        </article>
-
-        <article class="service-card lvl-2 reveal">
-          <span class="service-badge">02 · Operação</span>
-          <h3>Mini sistemas de agendamento</h3>
-          <p class="desc">Sua agenda online, lembretes automáticos e menos horário vago na semana — sem depender de planilha ou papel.</p>
-          <ul>
-            <li>Agenda em tempo real, 24h por dia</li>
-            <li>Lembretes automáticos por WhatsApp/e-mail</li>
-            <li>Painel simples pra você e sua equipe</li>
-          </ul>
-        </article>
-
-        <article class="service-card lvl-3 reveal">
-          <span class="service-badge">03 · Crescimento</span>
-          <h3>Tráfego pago com método</h3>
-          <p class="desc">Campanhas no Google e Meta Ads com metas claras, testes constantes e relatório que qualquer pessoa entende.</p>
-          <ul>
-            <li>Configuração e gestão das campanhas</li>
-            <li>Testes de criativo, público e oferta</li>
-            <li>Relatório mensal em linguagem simples</li>
-          </ul>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="processo" class="process section-pad">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Como funciona</span>
-        <h2>Do diagnóstico ao próximo nível.</h2>
-        <p>Um processo direto, com escopo e prazo combinados antes de qualquer linha de código.</p>
-      </div>
-
-      <div class="process-grid">
-        <div class="process-step reveal">
-          <div class="process-num">01</div>
-          <h4>Diagnóstico</h4>
-          <p>Entendemos seu negócio, seu público e onde estão as maiores perdas hoje.</p>
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="logo" href="#inicio">skala<span>.</span></a>
+          <p>Sites, sistemas de agendamento e tráfego pago conectados para empresas que querem crescer com mais estrutura.</p>
         </div>
-        <div class="process-step reveal">
-          <div class="process-num">02</div>
-          <h4>Construção</h4>
-          <p>Criamos o site e/ou sistema de agendamento com escopo e prazo combinados antes de começar.</p>
-        </div>
-        <div class="process-step reveal">
-          <div class="process-num">03</div>
-          <h4>Lançamento</h4>
-          <p>Colocamos no ar, testamos tudo com você e ajustamos o que for preciso.</p>
-        </div>
-        <div class="process-step reveal">
-          <div class="process-num">04</div>
-          <h4>Escala</h4>
-          <p>Ligamos o tráfego pago e otimizamos toda semana em cima de dado real.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <section id="diferenciais" class="why section-pad">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Por que a Skala</span>
-        <h2>Feito pra negócios que querem crescer sem complicação.</h2>
-        <p>Menos fornecedores soltos, mais coisa funcionando junta.</p>
-      </div>
-
-      <div class="why-grid">
-        <div class="why-card reveal">
-          <div class="why-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"></path></svg>
+        <div class="footer-links">
+          <div class="footer-column">
+            <h3>Navegação</h3>
+            <ul>
+              <li><a href="#servicos">Serviços</a></li>
+              <li><a href="#processo">Como funciona</a></li>
+              <li><a href="#diferenciais">Diferenciais</a></li>
+            </ul>
           </div>
-          <h4>Um time só</h4>
-          <p>Site, agenda e tráfego pago conversando entre si — sem terceirizar pra três fornecedores diferentes.</p>
-        </div>
-        <div class="why-card reveal">
-          <div class="why-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg>
+
+          <div class="footer-column">
+            <h3>Contato</h3>
+            <ul>
+              <li><a href="mailto:contato@skala.com.br">contato@skala.com.br</a></li>
+              <li><a href="tel:+5500000000000">(00) 00000-0000</a></li>
+            </ul>
           </div>
-          <h4>Prazo combinado</h4>
-          <p>Cronograma claro desde a proposta, sem enrolação e sem promessa vaga.</p>
-        </div>
-        <div class="why-card reveal">
-          <div class="why-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="M7 15l4-4 3 3 5-6"></path></svg>
+
+          <div class="footer-column">
+            <h3>Redes</h3>
+            <ul>
+              <li><a href="#">Instagram</a></li>
+              <li><a href="#">LinkedIn</a></li>
+            </ul>
           </div>
-          <h4>Métrica, não achismo</h4>
-          <p>Relatórios simples que mostram o que está funcionando — e o que não está.</p>
-        </div>
-        <div class="why-card reveal">
-          <div class="why-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-          </div>
-          <h4>Suporte direto</h4>
-          <p>Você fala com quem construiu o seu projeto, sem fila de atendimento.</p>
         </div>
       </div>
-    </div>
-  </section>
 
-  <section id="contato" class="cta-final section-pad">
-    <div class="container cta-inner">
-      <span class="eyebrow">Pronto pra subir de nível?</span>
-      <h2>Vamos colocar sua empresa em outra escala.</h2>
-      <p>Conta pra gente o que você precisa — site, agendamento, tráfego pago ou os três — e a gente monta o plano certo pro seu momento.</p>
-      <div class="cta-actions">
-        <a href="mailto:contato@skala.com.br" class="btn btn-primary">Falar com a Skala</a>
-        <a href="#servicos" class="btn btn-outline cta-outline">Ver serviços de novo</a>
+      <div class="footer-bottom">
+        <span>© 2026 Skala. Todos os direitos reservados.</span>
+        <span>Estratégia para crescer.</span>
       </div>
     </div>
-  </section>
+  </footer>
 
-</main>
+  <script>
+    const header = document.getElementById('siteHeader');
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
 
-<footer>
-  <div class="container">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <a href="#inicio" class="logo">skala<span class="dot">.</span></a>
-        <p>Sites, mini sistemas de agendamento e tráfego pago — tudo pensado pra sua empresa crescer numa escala só.</p>
-      </div>
-      <div class="footer-cols">
-        <div class="footer-col">
-          <h5>Navegação</h5>
-          <ul>
-            <li><a href="#servicos">Serviços</a></li>
-            <li><a href="#processo">Como funciona</a></li>
-            <li><a href="#diferenciais">Diferenciais</a></li>
-            <li><a href="#contato">Contato</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h5>Contato</h5>
-          <ul>
-            <li><a href="mailto:contato@skala.com.br">contato@skala.com.br</a></li>
-            <li><a href="tel:+5500000000000">(00) 00000-0000</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h5>Redes</h5>
-          <ul>
-            <li><a href="#">Instagram</a></li>
-            <li><a href="#">LinkedIn</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2026 Skala. Todos os direitos reservados.</span>
-      <span>Feito pra crescer.</span>
-    </div>
-  </div>
-</footer>
+    const updateHeader = () => {
+      header.classList.toggle('scrolled', window.scrollY > 12);
+    };
 
-<script>
-  // Menu mobile
-  const menuToggle = document.getElementById('menuToggle');
-  const mobilePanel = document.getElementById('mobilePanel');
-  menuToggle.addEventListener('click', () => {
-    const isOpen = mobilePanel.classList.toggle('open');
-    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-  });
-  mobilePanel.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      mobilePanel.classList.remove('open');
+    const closeMenu = () => {
+      mobileMenu.classList.remove('open');
       menuToggle.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('menu-open');
+    };
+
+    menuToggle.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      document.body.classList.toggle('menu-open', isOpen);
     });
-  });
 
-  // Reveal on scroll
-  const revealEls = document.querySelectorAll('.reveal');
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        revealObserver.unobserve(entry.target);
-      }
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeMenu);
     });
-  }, { threshold: 0.2 });
-  revealEls.forEach(el => revealObserver.observe(el));
 
-</script>
+    window.addEventListener('scroll', updateHeader, { passive:true });
+    updateHeader();
 
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold:.14 });
+
+    document.querySelectorAll('.reveal').forEach(element => revealObserver.observe(element));
+  </script>
 </body>
 </html>
